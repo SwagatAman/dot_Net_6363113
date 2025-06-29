@@ -1,0 +1,17 @@
+| Region | Category | TotalQuantity |
+| ------ | -------- | ------------- |
+| East   | Desk     | 4             |
+| East   | NULL     | 4             |
+| North  | Laptop   | 3             |
+| North  | T-Shirt  | 2             |
+| North  | NULL     | 5             |
+| South  | Chair    | 1             |
+| South  | NULL     | 1             |
+| West   | Laptop   | 2             |
+| West   | Chair    | 3             |
+| West   | NULL     | 5             |
+| NULL   | Chair    | 4             |
+| NULL   | Desk     | 4             |
+| NULL   | Laptop   | 5             |
+| NULL   | T-Shirt  | 2             |
+| NULL   | NULL     | 15            |
