@@ -1,0 +1,133 @@
+1. RESTful Web Service, Web API & Microservice Concepts
+REST (Representational State Transfer) is an architectural style for designing networked applications. A RESTful web service adheres to the following principles:
+
+Representational State Transfer: Resources are manipulated through the transfer of their representations (e.g., JSON, XML).
+
+Stateless: Each client request to the server contains all necessary information; the server maintains no client context between requests.
+
+Client-Server: A clear separation of concerns exists between the client (UI/UX) and the server (data/business logic).
+
+Cacheable: Responses can be cached by clients or intermediaries to improve performance.
+
+Layered System: Intermediate servers can be introduced without affecting client-server interactions.
+
+Uniform Interface: Resources are identified by URIs, manipulated via representations, and messages are self-descriptive.
+
+A Web API (Application Programming Interface) is a set of rules enabling communication between applications over HTTP. RESTful web services are a prevalent type of Web API.
+
+A Microservice is an architectural approach decomposing a large application into small, independent, and loosely coupled services, often communicating via RESTful APIs. This facilitates independent development, deployment, and scaling.
+
+Difference (WebService vs. WebAPI): Historically, "Web Service" often referred to SOAP (XML-based) services. "Web API" is a modern term primarily referring to flexible, JSON-based RESTful APIs.
+
+Data Format Flexibility: RESTful APIs are not restricted to XML responses; JSON is the widely preferred and common format due to its lightweight nature. Other formats are also supported.
+
+2. HttpRequest & HttpResponse
+Communication between a client and a web server involves an HttpRequest from the client and an HttpResponse from the server.
+
+HttpRequest: A message sent by the client to the server. Components include:
+
+Method (Action Verb): e.g., GET, POST.
+
+URL: Resource identifier.
+
+Headers: Request metadata (e.g., Content-Type).
+
+Body (optional): Data payload for the server.
+
+HttpResponse: A message sent by the server in response to an HttpRequest. Components include:
+
+Status Code: Numeric code indicating request outcome (e.g., 200 OK, 404 Not Found).
+
+Headers: Response metadata.
+
+Body (optional): Returned data or error message.
+
+3. Action Verbs
+HTTP methods, or Action Verbs, specify the intended operation on a resource. In .NET Core Web API, these are declared as attributes on action methods:
+
+[HttpGet] (Read): Retrieves data.
+
+Example: [HttpGet] public ActionResult<IEnumerable<string>> Get() { ... }
+
+[HttpPost] (Create): Submits data to create a new resource.
+
+Example: [HttpPost] public ActionResult Post([FromBody] string value) { ... }
+
+[HttpPut] (Update/Replace): Modifies an existing resource or creates it if not found.
+
+Example: [HttpPut("{id}")] public ActionResult Put(int id, [FromBody] string value) { ... }
+
+[HttpDelete] (Delete): Removes a specified resource.
+
+Example: [HttpDelete("{id}")] public ActionResult Delete(int id) { ... }
+
+4. HTTP Status Codes in WebAPI
+HTTP Status Codes convey the result of an HTTP request. In .NET Core Web API, these are returned via ActionResult types:
+
+200 OK: Request succeeded. (e.g., Ok(data);)
+
+201 Created: New resource created. (e.g., CreatedAtAction(...);)
+
+204 No Content: Success, no content returned. (e.g., NoContent();)
+
+400 Bad Request: Client-side error. (e.g., BadRequest("Invalid input.");)
+
+401 Unauthorized: Authentication required. (e.g., Unauthorized();)
+
+403 Forbidden: Access denied. (e.g., Forbid();)
+
+404 Not Found: Resource not found. (e.g., NotFound();)
+
+500 Internal Server Error: Generic server-side error. (e.g., StatusCode(500, "Error");)
+
+5. Demonstration of a Simple WebAPI (Read, Write Actions)
+A .NET Core Web API with Read and Write actions was created and demonstrated.
+
+API Structure:
+
+Controller (ValuesController.cs): A C# class handling HTTP requests.
+
+Inheritance: From Microsoft.AspNetCore.Mvc.ControllerBase.
+
+Attributes: [ApiController] enables API-specific behaviors; [Route("api/[controller]")] defines the base URL.
+
+Action Verbs: Attributes ([HttpGet], [HttpPost], etc.) map methods to HTTP actions.
+
+Action Method: Public methods within the controller containing API logic, returning ActionResult types.
+
+Demonstration Steps & Testing:
+
+Project created using dotnet new webapi -n MyReadWriteApi.
+
+ValuesController.cs added with GET, POST, PUT, DELETE methods.
+
+Program.cs updated for controller and Swagger configuration.
+
+Swashbuckle.AspNetCore NuGet package added via dotnet add package Swashbuckle.AspNetCore.
+
+Application executed using dotnet run.
+
+Endpoints tested via Swagger UI (http://localhost:5128/swagger) and curl:
+
+GET: Confirmed expected output (e.g., ["value1", "value2", "value3"]).
+
+POST: New value added, verified (201 Created).
+
+PUT: Existing value updated, verified (204 No Content).
+
+DELETE: Value removed, verified (204 No Content).
+
+6. WebAPI Configuration Files
+Configuration files for a .NET Core Web API include Program.cs, appSettings.json, and launchSettings.json. Older .NET 4.5 Framework applications used Route.config and WebAPI.config.
+
+Program.cs: The application's entry point. Configures the web host, registers services for Dependency Injection (DI) (e.g., AddControllers(), AddSwaggerGen()), and sets up the HTTP request pipeline (e.g., UseSwagger(), MapControllers()).
+
+appSettings.json: Stores application-wide settings (e.g., connection strings). Supports environment-specific versions (e.g., appsettings.Development.json).
+
+launchSettings.json: Defines development-specific launch profiles (URLs, environment variables). Not used in production.
+
+Route.config & WebAPI.config (Older .NET 4.5 Framework):
+
+Route.config: Defined URL routing rules. In .NET Core, routing is configured in Program.cs.
+
+WebAPI.config: Configured API-specific settings (e.g., formatters). In .NET Core, these functions are integrated into Program.cs.
