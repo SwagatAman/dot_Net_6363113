@@ -1,0 +1,6 @@
+<<<<<<< HEAD
+<hello>This is from master branch</hello> 
+=======
+<hello>Updated on GitWork branch</hello> 
+<hello>Final merged content</hello>
+>>>>>>> GitWork
